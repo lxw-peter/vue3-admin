@@ -40,8 +40,7 @@
   },
   "lint-staged": {
     "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": [
-      "npm run lint",
-      "git add"
+      "npm run lint"
     ]
   }
 }
