@@ -2,7 +2,7 @@
 
 ## 格式化
 
-[ x ] eslint
-[ x ] prettier
-[ x ] lint staged
-[ x ] commit msg lint
+- eslint
+- prettier
+- lint staged
+- commit msg lints
