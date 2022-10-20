@@ -12,6 +12,7 @@ export default defineConfig({
     vueJsx(),
     eslint({
       cache: false, // 禁用 eslint 缓存
+      fix: true,
     }),
   ],
   resolve: {

@@ -1,5 +1,5 @@
 /* eslint-env node */
-require('@rushstack/eslint-patch/modern-module-resolution');
+require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
   root: true,
@@ -15,6 +15,12 @@ module.exports = {
   },
   rules: {
     // 关闭 prettier 警告
-    'prettier/prettier': 'off',
+    'prettier/prettier': 'error',
+    'vue/multi-word-component-names': [
+      'error',
+      {
+        ignores: ['index'],
+      },
+    ],
   },
-};
+}
