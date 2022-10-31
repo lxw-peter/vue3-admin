@@ -3,7 +3,7 @@ import type { AxiosRequestConfig } from 'axios'
 
 // 创建一个实例
 const request = axios.create({
-  baseURL: '/',
+  baseURL: import.meta.env.VITE_BASE_URL,
 })
 
 // Add a request interceptor
