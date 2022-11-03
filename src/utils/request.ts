@@ -1,5 +1,6 @@
 import axios from 'axios'
 import type { AxiosRequestConfig } from 'axios'
+import { ElMessage } from 'element-plus'
 
 // 创建一个实例
 const request = axios.create({
@@ -23,6 +24,10 @@ request.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
+    if (response.data && response.data.code !== 200) {
+      ElMessage.error(response.data?.msg || '请求失败，请稍后重试')
+      return Promise.reject(response.data)
+    }
     return response
   },
   function (error) {
@@ -34,6 +39,6 @@ request.interceptors.response.use(
 
 export default <T = any>(config: AxiosRequestConfig) => {
   return request(config).then((res) => {
-    return (res.data.data | res.data) as T
+    return (res.data.data || res.data) as T
   })
 }

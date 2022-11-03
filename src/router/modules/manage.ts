@@ -24,7 +24,7 @@ const routes: RouteRecordRaw = {
       meta: { name: '发票管理' },
     },
     {
-      path: 'operation/:id',
+      path: 'operation',
       name: 'operation',
       component: () => import('@/views/manage/operation/index.vue'),
       meta: { name: '运行管理' },

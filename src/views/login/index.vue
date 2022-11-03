@@ -2,29 +2,41 @@
 import { reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import { login } from '@/api'
-import { ElForm, ElMessage } from 'element-plus'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import router from '@/router'
 
 const loginForm = reactive({
   userId: 'hy0000',
   password: 'hy0000',
 })
-const loginFormRule = reactive({
-  userId: [{}],
-  password: [{}],
+
+const loginFormRule = reactive<FormRules>({
+  userId: [{ required: true, trigger: 'change,blur', message: '请输入账号' }],
+  password: [{ required: true, trigger: 'change,blur', message: '请输入密码' }],
 })
-const loginFormRef = ref<InstanceType<typeof ElForm> | null>(null)
+
+const loginFormRef = ref<FormInstance | null>(null)
+
+const loading = ref(false)
+
 const handleSubmit = async () => {
-  const isValidate = loginFormRef.value?.validate()
+  const isValidate = await loginFormRef.value?.validate()
   if (!isValidate) {
+    ElMessage.warning('请填写账号或密码')
     return false
   }
-  let res = await login(loginForm)
+
+  loading.value = true
+  let res = await login(loginForm).finally(() => {
+    loading.value = false
+  })
   console.log(res)
   ElMessage.success('登录成功')
+  router.replace({ name: 'home' })
 }
 </script>
 <template>
-  <el-container :rules="loginFormRule" direction="vertical" class="login-index-container">
+  <el-container direction="vertical" class="login-index-container">
     <div class="login-index-content">
       <div class="login-container">
         <div class="login-top">
@@ -35,11 +47,11 @@ const handleSubmit = async () => {
           <div class="login-desc">用车管理系统</div>
         </div>
         <div class="login-main">
-          <el-form ref="loginFormRef" :model="loginForm">
-            <el-form-item>
+          <el-form ref="loginFormRef" :rules="loginFormRule" :model="loginForm" @submit.prevent="handleSubmit">
+            <el-form-item prop="userId">
               <el-input v-model="loginForm.userId" :prefix-icon="User" placeholder="请输入账号"></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item prop="password">
               <el-input
                 v-model="loginForm.password"
                 show-password
@@ -48,7 +60,7 @@ const handleSubmit = async () => {
               ></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button style="width: 100%" type="primary" @click="handleSubmit">登录</el-button>
+              <el-button style="width: 100%" type="primary" native-type="submit" :loading="loading">登录</el-button>
             </el-form-item>
           </el-form>
         </div>
