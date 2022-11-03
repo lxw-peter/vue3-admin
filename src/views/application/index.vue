@@ -61,7 +61,6 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import dayjs from 'dayjs'
-import { ElMessage } from 'element-plus'
 const formRef = ref(null)
 const form = reactive({
   processName: '用车申请',

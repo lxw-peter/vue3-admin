@@ -98,10 +98,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, computed } from 'vue'
+import { reactive, ref } from 'vue'
 import { Plus, ArrowRight } from '@element-plus/icons-vue'
-import dayjs from 'dayjs'
-import { ElMessage } from 'element-plus'
 
 const roles = reactive([])
 const tableData = reactive([])
@@ -157,7 +155,7 @@ function handleEdit(row) {
 /**
  * 保存当前行
  */
-async function handleSave(row) {}
+async function handleSave() {}
 /**
  * 取消
  */
@@ -173,8 +171,8 @@ async function handleAdd() {}
 /**
  * 格式化userId
  */
-function formateId(id) {
-  return 'hy' + id.toString().padStart(4, 0)
-}
+// function formateId(id) {
+//   return 'hy' + id.toString().padStart(4, 0)
+// }
 </script>
 <style></style>

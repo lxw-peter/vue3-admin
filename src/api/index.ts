@@ -1,10 +1,11 @@
 import request from '@/utils/request'
-import type { ILoginInfo } from '@/api/types/index'
-// 根据接口参数类型定义泛型
+import type { ILogin } from '@/api/types/index'
 
-export const getLoginInfo = () => {
-  return request<ILoginInfo>({
-    method: 'GET',
-    url: '/login/info',
+// 根据接口参数类型定义泛
+export const login = (data: { password: string; userId: string }) => {
+  return request<ILogin>({
+    method: 'POST',
+    url: '/user/login',
+    data,
   })
 }

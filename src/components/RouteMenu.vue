@@ -56,7 +56,7 @@
 
 <script lang="ts" setup>
 import { List, User as IconUser, Menu as IconMenu, Setting } from '@element-plus/icons-vue'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()

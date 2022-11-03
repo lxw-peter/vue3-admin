@@ -35,12 +35,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { ref } from 'vue'
 import { User, ArrowDown, SwitchButton, Fold } from '@element-plus/icons-vue'
 
-const router = useRouter()
-const route = useRoute()
 let username = ref('admin')
 let drawer = ref(false)
 

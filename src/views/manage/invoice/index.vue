@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import { ArrowRight } from '@element-plus/icons-vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 
 const tableData = ref([])
 
@@ -9,7 +9,7 @@ const dialogVisible = ref(false)
 const form = reactive({ date: '' })
 const formRef = ref(null)
 // 编辑
-function handleEdit(row) {
+function handleEdit() {
   dialogVisible.value = true
 }
 // 删除

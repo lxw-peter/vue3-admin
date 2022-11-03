@@ -56,10 +56,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, computed, onUnmounted } from 'vue'
+import { reactive, ref } from 'vue'
 import { Plus, ArrowRight } from '@element-plus/icons-vue'
-import dayjs from 'dayjs'
-import { ElMessage } from 'element-plus'
 
 let tableData = reactive([])
 let rights = reactive([])
@@ -89,16 +87,16 @@ const rules = ref({
   ],
 })
 
-async function getAllRoles(isFirst = true) {}
+async function getAllRoles() {}
 
 function handleEdit(row) {
   editId.value = row.id
   originRow.value = { ...row }
 }
 
-async function handleSave(row) {}
+async function handleSave() {}
 
-async function handleDelete(id, index) {}
+async function handleDelete() {}
 
 function handleCancel(index) {
   tableData[index] = originRow.value

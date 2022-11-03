@@ -167,9 +167,8 @@
   </el-card>
 </template>
 <script lang="ts" setup>
-import { ref, reactive, computed } from 'vue'
-import { Plus, ArrowRight } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
+import { ref, reactive } from 'vue'
+import { ArrowRight } from '@element-plus/icons-vue'
 
 const processName = ref('')
 const dialogVisible = ref(false)
@@ -195,7 +194,6 @@ const rules = ref({
 })
 
 const steps = reactive([])
-const activeIndex = computed(() => steps.length)
 const processList = ref([])
 const departmentList = ref([])
 const editId = ref(null)
@@ -271,21 +269,13 @@ function handleEdit(row) {
   steps.push(...row.steps)
 }
 
-/**
- * 保存
- */
-
-async function handleEditSave() {}
-
 // 删除流程
 async function handleDelete() {}
 // 删除步骤
 function handleDeleteStep() {}
 
-function handleCancel(index) {}
-
 // 切换
-async function switchHandler(row) {}
+async function switchHandler() {}
 
-async function handlerQueryUserList(str) {}
+async function handlerQueryUserList() {}
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue'
 import { ArrowRight } from '@element-plus/icons-vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 import dayjs from 'dayjs'
 
 const tableData = ref([])
@@ -10,7 +10,7 @@ onMounted(getData)
 // 获取数据
 async function getData() {}
 // 格式化日期
-function formateDate(row, column, cellValue, index) {
+function formateDate(cellValue) {
   return dayjs(cellValue).format('YYYY-MM-DD')
 }
 
@@ -18,7 +18,7 @@ const dialogVisible = ref(false)
 const form = reactive({ date: '' })
 const formRef = ref(null)
 // 编辑
-function handleEdit(row) {
+function handleEdit() {
   dialogVisible.value = true
 }
 // 删除
