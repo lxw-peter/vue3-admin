@@ -8,11 +8,13 @@ import UserRoutes from './modules/user'
 import ApplicationRoutes from './modules/application'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import { useLoginInfo } from '@/stores'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: AppLayout,
+    meta: { requireAuth: true },
     children: [
       {
         path: '',
@@ -34,9 +36,12 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
   NProgress.start()
-  next()
+  const { userInfo } = useLoginInfo()
+  if (to.meta?.requireAuth && !userInfo) {
+    return { name: 'login', query: { redirect: to.fullPath } }
+  }
 })
 
 router.afterEach(() => {

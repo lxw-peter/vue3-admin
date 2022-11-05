@@ -8,9 +8,9 @@
       </el-icon>
     </div>
     <div class="user-info">
-      <el-dropdown v-if="username">
+      <el-dropdown v-if="userInfo">
         <span class="el-dropdown-link">
-          <span>{{ username }}</span>
+          <span>{{ userInfo.name }}</span>
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -37,8 +37,15 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { User, ArrowDown, SwitchButton, Fold } from '@element-plus/icons-vue'
+import { useLoginInfo } from '@/stores'
+import { removeItem } from '@/utils/storages'
+import { TOKEN, USER } from '@/utils/constans'
+import { useRoute, useRouter } from 'vue-router'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
-let username = ref('admin')
+const { userInfo } = useLoginInfo()
+const router = useRouter()
+const route = useRoute()
 let drawer = ref(false)
 
 function showCollapse() {
@@ -50,10 +57,19 @@ function login() {
   // })
 }
 function logout() {
-  localStorage.clear()
-  // router.replace({
-  //   name: 'Login',
-  // })
+  ElMessageBox.confirm('确认注销登录吗', '提示')
+    .then(() => {
+      removeItem(TOKEN)
+      removeItem(USER)
+      ElMessage.success('注销成功！')
+      router.replace({
+        name: 'login',
+        query: { redirect: route.fullPath },
+      })
+    })
+    .catch(() => {
+      ElMessage.info('取消注销')
+    })
 }
 </script>
 

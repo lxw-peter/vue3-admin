@@ -3,7 +3,12 @@ import { reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import { login } from '@/api'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
-import router from '@/router'
+import { useLoginInfo } from '@/stores'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
+const { setUserInfo } = useLoginInfo()
 
 const loginForm = reactive({
   userId: 'hy0000',
@@ -30,9 +35,13 @@ const handleSubmit = async () => {
   let res = await login(loginForm).finally(() => {
     loading.value = false
   })
-  console.log(res)
+  setUserInfo({ ...res.userInfo, token: res.token })
   ElMessage.success('登录成功')
-  router.replace({ name: 'home' })
+  let redirect = route.query.redirect || '/'
+  if (typeof redirect !== 'string') {
+    redirect = '/'
+  }
+  router.replace(redirect)
 }
 </script>
 <template>
