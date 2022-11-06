@@ -6,10 +6,10 @@
 
 <style>
 .el-footer {
-  background-color: #eef0f3;
-  color: var(--el-text-color-primary);
-  text-align: center;
   height: 48px;
   line-height: 48px;
+  color: var(--el-text-color-primary);
+  text-align: center;
+  background-color: #eef0f3;
 }
 </style>

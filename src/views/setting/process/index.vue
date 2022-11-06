@@ -19,10 +19,10 @@
       <el-divider></el-divider>
       <el-form ref="formRef" :model="form" :rules="rules" style="text-align: left" label-width="85px">
         <el-form-item label="步骤名" prop="stepName">
-          <el-input type="text" v-model="form.stepName"></el-input>
+          <el-input v-model="form.stepName" type="text"></el-input>
         </el-form-item>
         <el-form-item label="步骤描述" prop="stepDesc">
-          <el-input type="text" v-model="form.stepDesc"></el-input>
+          <el-input v-model="form.stepDesc" type="text"></el-input>
         </el-form-item>
         <el-form-item label="执行部门" prop="executiveDepartment">
           <el-select v-model="form.executiveDepartment" type="text" style="width: 100%">
@@ -144,9 +144,9 @@
       <el-table-column prop="used" label="流程开启" width="100px" align="center">
         <template #default="scope">
           <el-switch
+            v-model="scope.row.used"
             :active-value="1"
             :inactive-value="0"
-            v-model="scope.row.used"
             @change="switchHandler(scope.row)"
           ></el-switch>
         </template>

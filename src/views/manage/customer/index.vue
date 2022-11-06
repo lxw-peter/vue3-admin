@@ -78,7 +78,7 @@ function handleDelete(scope) {
       </el-table-column>
     </el-table>
     <el-dialog v-model="dialogVisible" title="修改">
-      <el-form :model="form" ref="formRef" label-width="auto" label-position="right">
+      <el-form ref="formRef" :model="form" label-width="auto" label-position="right">
         <el-form-item label="公户"><el-input v-model="form.date"></el-input></el-form-item>
         <el-form-item label="中心户"><el-input v-model="form.date"></el-input></el-form-item>
         <el-form-item label="普票"><el-input v-model="form.date"></el-input></el-form-item>
@@ -90,7 +90,7 @@ function handleDelete(scope) {
         <el-form-item label="到账日期"><el-input v-model="form.date"></el-input></el-form-item>
         <el-form-item label="返还金额"><el-input v-model="form.date"></el-input></el-form-item>
         <el-form-item label="备注">
-          <el-input type="textarea" v-model="form.date"></el-input>
+          <el-input v-model="form.date" type="textarea"></el-input>
         </el-form-item>
       </el-form>
       <template #footer>

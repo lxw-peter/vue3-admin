@@ -43,7 +43,7 @@
       <el-table-column label="账号" prop="userId"></el-table-column>
       <el-table-column label="部门" prop="department" min-width="160px">
         <template #default="scope">
-          <el-select :disabled="scope.row.id !== editId" v-model="scope.row.department" type="text" style="width: 100%">
+          <el-select v-model="scope.row.department" :disabled="scope.row.id !== editId" type="text" style="width: 100%">
             <el-option
               v-for="item of departmentData"
               :key="item.id"
@@ -55,7 +55,7 @@
       </el-table-column>
       <el-table-column label="角色" prop="roles" min-width="160px">
         <template #default="scope">
-          <el-select multiple v-model="scope.row.roles" :disabled="scope.row.id !== editId">
+          <el-select v-model="scope.row.roles" multiple :disabled="scope.row.id !== editId">
             <el-option v-for="item of roles" :key="item.id" :label="item.role" :value="item.role"></el-option>
           </el-select>
         </template>
@@ -82,8 +82,8 @@
             <el-button
               v-show="editId === null || scope.row.id !== editId"
               type="text"
-              @click="handleEdit(scope.row)"
               :disabled="scope.row.id === 0"
+              @click="handleEdit(scope.row)"
               >编辑</el-button
             >
             <div v-show="scope.row.id === editId" style="white-space: nowrap">

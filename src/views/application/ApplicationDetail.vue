@@ -31,10 +31,10 @@
       <el-descriptions-item label="用车天数:">{{ currentApplicationInfo.vehicleDays }}</el-descriptions-item>
       <el-descriptions-item label="申请状态:">{{ currentApplicationInfo.status }}</el-descriptions-item>
       <el-descriptions-item label="备注:" span="2">
-        <el-input type="textarea" disabled v-model="currentApplicationInfo.remarks"></el-input
+        <el-input v-model="currentApplicationInfo.remarks" type="textarea" disabled></el-input
       ></el-descriptions-item>
     </el-descriptions>
-    <div style="text-align: center" v-if="showOptionBtn">
+    <div v-if="showOptionBtn" style="text-align: center">
       <template>
         <el-popconfirm title="确定驳回吗" @confirm="handlerSubmit(false)">
           <template #reference>

@@ -26,10 +26,9 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <span v-else @click="login">登录</span>
     </div>
   </el-header>
-  <el-drawer custom-class="router-drawer" size="50%" v-model="drawer" direction="ltr" :with-header="false">
+  <el-drawer v-model="drawer" custom-class="router-drawer" size="50%" direction="ltr" :with-header="false">
     <routeMenu></routeMenu>
   </el-drawer>
 </template>
@@ -51,11 +50,7 @@ let drawer = ref(false)
 function showCollapse() {
   drawer.value = !drawer.value
 }
-function login() {
-  // router.replace({
-  //   name: 'Login',
-  // })
-}
+
 function logout() {
   ElMessageBox.confirm('确认注销登录吗', '提示')
     .then(() => {
@@ -73,49 +68,58 @@ function logout() {
 }
 </script>
 
-<style>
+<style lang="scss">
 .el-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: #fff;
   background-color: #051424;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
+
 .logo {
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
 }
+
 .logo-img {
   width: 24px;
 }
+
 .logo-title {
-  font-size: 20px;
   margin-left: 15px;
+  font-size: 20px;
 }
+
 .header-collapse-icon {
   display: none;
-  font-size: 25px;
   margin-left: 15px;
+  font-size: 25px;
+
+  &.fold {
+    transform: rotate(-180deg);
+  }
 }
-.header-collapse-icon.fold {
-  transform: rotate(-180deg);
-}
+
 .el-drawer__body {
   padding: 0;
 }
+
 .el-dropdown-link {
-  color: #fff;
   font-size: 16px;
+  color: #fff;
   cursor: pointer;
 }
+
 @media screen and (max-width: 768px) {
   .pc-aside,
   .logo-title {
     display: none !important;
   }
+
   .header-collapse-icon {
     display: block;
   }

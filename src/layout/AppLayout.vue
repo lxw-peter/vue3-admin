@@ -19,7 +19,7 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
 <style scoped>
 .el-main {
-  background-color: #eef0f3;
   color: var(--el-text-color-primary);
+  background-color: #eef0f3;
 }
 </style>

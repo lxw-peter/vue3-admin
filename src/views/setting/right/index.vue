@@ -9,10 +9,10 @@
 
     <el-form ref="formRef" :model="form" :rules="rules" style="max-width: 600px; text-align: left">
       <el-form-item label="角色" prop="role">
-        <el-input type="text" v-model="form.role"></el-input>
+        <el-input v-model="form.role" type="text"></el-input>
       </el-form-item>
       <el-form-item label="权限" prop="rights">
-        <el-select type="text" v-model="form.rights" multiple>
+        <el-select v-model="form.rights" type="text" multiple>
           <el-option v-for="item of rights" :key="item.id" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
@@ -25,7 +25,7 @@
       <el-table-column label="角色" prop="role"></el-table-column>
       <el-table-column label="权限" prop="rights">
         <template #default="scope">
-          <el-select type="text" v-model="scope.row.rights" multiple :disabled="scope.row.id !== editId">
+          <el-select v-model="scope.row.rights" type="text" multiple :disabled="scope.row.id !== editId">
             <el-option v-for="item of rights" :key="item.id" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </template>

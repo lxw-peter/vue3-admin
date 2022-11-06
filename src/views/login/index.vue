@@ -75,7 +75,7 @@ const handleSubmit = async () => {
         </div>
       </div>
     </div>
-    <AppFooter style="background-color: rgb(238, 240, 243)"></AppFooter>
+    <AppFooter style="background-color: rgb(238 240 243)"></AppFooter>
   </el-container>
 </template>
 <style lang="scss">
@@ -92,11 +92,11 @@ const handleSubmit = async () => {
 }
 
 .login-container {
-  padding: 32px 0 24px;
   display: flex;
   flex: 1 1;
   flex-direction: column;
   height: 100%;
+  padding: 32px 0 24px;
   overflow: auto;
 }
 
@@ -111,22 +111,23 @@ const handleSubmit = async () => {
 .login-top {
   text-align: center;
 }
+
 .login-logo-img {
   width: 44px;
   margin-right: 16px;
 }
 
 .login-title {
-  color: rgba(0, 0, 0, 0.85);
-  font-weight: 600;
   font-size: 33px;
+  font-weight: 600;
+  color: rgb(0 0 0 / 85%);
 }
 
 .login-desc {
   margin-top: 12px;
   margin-bottom: 40px;
-  color: rgba(0, 0, 0, 0.45);
   font-size: 14px;
+  color: rgb(0 0 0 / 45%);
 }
 
 .login-main {
@@ -147,6 +148,7 @@ const handleSubmit = async () => {
   .login-index-content {
     padding: 32px 0 24px;
   }
+
   .login-container {
     padding: 32px 0 24px;
   }

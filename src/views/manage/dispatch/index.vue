@@ -87,10 +87,10 @@ function handleEditList() {}
     </template>
     <el-form ref="carFormRef" :model="carForm" :rules="carRules" style="max-width: 600px; text-align: left">
       <el-form-item label="车牌号" prop="plateNumber">
-        <el-input type="text" v-model="carForm.plateNumber"></el-input>
+        <el-input v-model="carForm.plateNumber" type="text"></el-input>
       </el-form-item>
       <el-form-item label="座位数" prop="seatsNumber">
-        <el-input type="number" min="1" v-model="carForm.seatsNumber"></el-input>
+        <el-input v-model="carForm.seatsNumber" type="number" min="1"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" :icon="Plus" @click="handleAdd">添加客车</el-button>
@@ -128,12 +128,12 @@ function handleEditList() {}
         </template>
         <template #default="scope">
           <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
-          <el-button type="text" @click="handleDelete(scope)" disabled>删除</el-button>
+          <el-button type="text" disabled @click="handleDelete(scope)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog v-model="dialogVisible" title="修改">
-      <el-form :model="form" ref="formRef" label-width="auto" label-position="right">
+      <el-form ref="formRef" :model="form" label-width="auto" label-position="right">
         <el-form-item label="车牌号"><el-input v-model="form.plateNumber"></el-input></el-form-item>
         <el-form-item label="座位数"
           ><el-input v-model="form.seatsNumber" type="number" min="0"></el-input
@@ -156,7 +156,7 @@ function handleEditList() {}
           <el-date-picker v-model="form.returnDate"></el-date-picker>
         </el-form-item>
         <el-form-item label="运行天数">
-          <el-input type="number" min="0" v-model="form.vehicleDays"></el-input>
+          <el-input v-model="form.vehicleDays" type="number" min="0"></el-input>
         </el-form-item>
         <el-form-item label="司机一"><el-input v-model="form.driver1"></el-input></el-form-item>
         <el-form-item label="司机二"><el-input v-model="form.driver2"></el-input></el-form-item>
@@ -174,7 +174,7 @@ function handleEditList() {}
         </el-form-item>
 
         <el-form-item label="备注">
-          <el-input type="textarea" v-model="form.date"></el-input>
+          <el-input v-model="form.date" type="textarea"></el-input>
         </el-form-item>
       </el-form>
       <template #footer>

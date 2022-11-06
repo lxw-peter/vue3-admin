@@ -8,7 +8,7 @@
     </template>
     <el-form ref="formRef" :model="form" :rules="rules" style="max-width: 600px; text-align: left">
       <el-form-item label="部门名称" prop="departmentName">
-        <el-input type="text" v-model="form.departmentName"></el-input>
+        <el-input v-model="form.departmentName" type="text"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" :icon="Plus" @click="handleAdd">添加部门</el-button>

@@ -11,7 +11,7 @@
         <el-input type="form.plateNumber"></el-input>
       </el-form-item>
       <el-form-item label="座位数" prop="seatsNumber">
-        <el-input type="number" min="1" v-model="form.seatsNumber"></el-input>
+        <el-input v-model="form.seatsNumber" type="number" min="1"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" :icon="Plus" @click="handleAdd">添加客车</el-button>

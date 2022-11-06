@@ -21,14 +21,14 @@ table,
 td,
 img,
 div {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 body {
-  background: #fff;
-  color: #333;
   font-size: 16px;
+  color: #333;
+  background: #fff;
 }
 
 ul,
@@ -36,7 +36,6 @@ ol {
   list-style-type: none;
 }
 
-select,
 input,
 img,
 select {
@@ -44,9 +43,9 @@ select {
 }
 
 a {
-  text-decoration: none;
   font-size: inherit;
   color: inherit;
+  text-decoration: none;
 }
 
 .el-dialog {

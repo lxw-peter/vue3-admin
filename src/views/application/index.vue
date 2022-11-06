@@ -1,8 +1,8 @@
 <template>
   <el-card>
     <el-form
-      ref="formRef"
       v-show="!showResult"
+      ref="formRef"
       :model="form"
       :rules="rules"
       label-position="top"
@@ -25,13 +25,13 @@
         <el-date-picker v-model="form.departureDate"> </el-date-picker>
       </el-form-item>
       <el-form-item label="用车天数" required>
-        <el-input type="number" min="0" v-model="form.vehicleDays"> </el-input>
+        <el-input v-model="form.vehicleDays" type="number" min="0"> </el-input>
       </el-form-item>
       <el-form-item label="费用" prop="expenses">
-        <el-input type="number" v-model="form.expenses" placeholder="请输入费用"></el-input>
+        <el-input v-model="form.expenses" type="number" placeholder="请输入费用"></el-input>
       </el-form-item>
       <el-form-item label="备注" prop="remarks">
-        <el-input type="textarea" v-model="form.remarks" placeholder="请输入备注"> </el-input>
+        <el-input v-model="form.remarks" type="textarea" placeholder="请输入备注"> </el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm">提交</el-button>

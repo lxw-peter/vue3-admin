@@ -70,16 +70,18 @@ defineProps({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .el-menu {
   border-right: none;
 }
+
 .menu-vertical {
-  width: 100%;
   flex: 1;
-}
-.menu-vertical:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
+  width: 100%;
+
+  &:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+  }
 }
 </style>
