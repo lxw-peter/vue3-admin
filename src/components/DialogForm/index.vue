@@ -1,5 +1,5 @@
 <template>
-  <el-dialog ref="dialog" width="50%" :close-on-click-modal="false" :close-on-press-escape="false">
+  <el-dialog ref="dialog" :close-on-click-modal="false" :close-on-press-escape="false">
     <slot />
     <template #footer>
       <el-button @click="handleCancel">取消</el-button>

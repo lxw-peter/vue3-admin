@@ -79,6 +79,7 @@ function handleClick(tab, event) {
 .table-cell-link {
   color: #508ffe;
 }
+
 .table-cell-link:hover {
   text-decoration: underline;
 }

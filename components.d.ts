@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     AppAside: typeof import('./src/components/AppAside.vue')['default']
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
     AppHeader: typeof import('./src/components/AppHeader.vue')['default']
+    DialogForm: typeof import('./src/components/DialogForm/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']

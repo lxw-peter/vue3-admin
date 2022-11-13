@@ -6,7 +6,7 @@
       :model="form"
       :rules="rules"
       label-position="top"
-      style="margin: 8px auto auto; max-width: 600px; text-align: left"
+      style="max-width: 600px; margin: 8px auto auto; text-align: left"
       label-width="120px"
     >
       <el-form-item label="用车单位" prop="company">

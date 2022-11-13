@@ -10,7 +10,7 @@
     <el-divider></el-divider>
 
     <!-- 创建流程弹窗 -->
-    <el-dialog v-model="dialogVisible" :title="dialogTitle">
+    <!-- <el-dialog v-model="dialogVisible" :title="dialogTitle">
       <el-form>
         <el-form-item label="流程名称" label-width="85px">
           <el-input v-model.trim="processName"></el-input>
@@ -45,7 +45,7 @@
           >
             <el-option v-for="item in userList" :key="item.value" :label="item.label" :value="item.value"> </el-option>
           </el-select>
-          <!-- <el-autocomplete
+           <el-autocomplete
             v-model="form.executor"
             :clearable="true"
             :fetch-suggestions="handlerQueryUserList"
@@ -53,7 +53,7 @@
             <template #default="{ item }">
               <div>{{ item.label }}</div>
             </template>
-          </el-autocomplete> -->
+          </el-autocomplete>
         </el-form-item>
         <el-form-item label="参数" prop="params">
           <el-select v-model="form.params" placeholder="请输入参数">
@@ -125,7 +125,7 @@
           <el-button type="primary" @click="submitHandler">确定</el-button>
         </span>
       </template>
-    </el-dialog>
+    </el-dialog> -->
 
     <el-table :data="processList" border>
       <el-table-column prop="processName" label="流程名" width="120" />
@@ -164,11 +164,15 @@
         </template>
       </el-table-column>
     </el-table>
+    <DialogForm v-model="dialogVisible" :title="dialogTitle" @confirm="handleConfirm">
+      <span>弹窗内容</span>
+    </DialogForm>
   </el-card>
 </template>
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import { ArrowRight } from '@element-plus/icons-vue'
+// import DialogForm from '@/components/DialogForm/index.vue'
 
 const processName = ref('')
 const dialogVisible = ref(false)
@@ -194,7 +198,59 @@ const rules = ref({
 })
 
 const steps = reactive([])
-const processList = ref([])
+const processList = ref([
+  {
+    id: 2,
+    processName: '用车申请',
+    steps: [
+      {
+        stepId: 0.35690374814993375,
+        executor: '',
+        stepDesc: '',
+        stepName: '提交用车申请',
+        executorId: '',
+        executiveDepartment: '业务部门',
+      },
+      {
+        stepId: 0.7907862648177852,
+        executor: '',
+        stepDesc: '',
+        stepName: '调度室接单 ',
+        executorId: '',
+        stepStatus: '',
+        executiveDepartment: '调度室',
+      },
+      {
+        stepId: 0.31312903478453347,
+        executor: 'hy0031',
+        stepDesc: '',
+        stepName: '审核',
+        executorId: '',
+        stepStatus: '',
+        executiveDepartment: '董事长',
+      },
+      {
+        stepId: 0.2679913982869613,
+        executor: '',
+        stepDesc: '',
+        stepName: '办理用车手续',
+        executorId: '',
+        stepStatus: '',
+        executiveDepartment: '综合办公室',
+      },
+      {
+        stepId: 0.34793443964877646,
+        executor: 'hy0035',
+        stepDesc: '',
+        stepName: '财务审核',
+        executorId: '',
+        stepStatus: '',
+        executiveDepartment: '财务部',
+      },
+    ],
+    used: 1,
+  },
+])
 const departmentList = ref([])
 const editId = ref(null)
 const originRow = ref({
@@ -269,6 +325,9 @@ function handleEdit(row) {
   steps.push(...row.steps)
 }
 
+function handleConfirm() {
+  dialogVisible.value = false
+}
 // 删除流程
 async function handleDelete() {}
 // 删除步骤
