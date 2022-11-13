@@ -56,8 +56,6 @@ import { reactive, ref } from 'vue'
 import { Plus, ArrowRight } from '@element-plus/icons-vue'
 
 let tableData = ref([])
-getDepartmentList()
-
 const editId = ref(null)
 const originRow = ref({ departmentName: '' })
 const formRef = ref(null)
@@ -74,8 +72,6 @@ const rules = ref({
   ],
 })
 
-async function getDepartmentList() {}
-
 function handleEdit(row) {
   editId.value = row.id
   originRow.value = { ...row }
@@ -89,4 +85,3 @@ function handleCancel() {}
 
 async function handleAdd() {}
 </script>
-<style></style>

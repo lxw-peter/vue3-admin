@@ -6,127 +6,8 @@
         <el-breadcrumb-item>流程管理</el-breadcrumb-item>
       </el-breadcrumb>
     </template>
-    <el-button type="primary" @click="dialogVisible = true">创建流程</el-button>
+    <el-button type="primary" @click="handleCreate">创建流程</el-button>
     <el-divider></el-divider>
-
-    <!-- 创建流程弹窗 -->
-    <!-- <el-dialog v-model="dialogVisible" :title="dialogTitle">
-      <el-form>
-        <el-form-item label="流程名称" label-width="85px">
-          <el-input v-model.trim="processName"></el-input>
-        </el-form-item>
-      </el-form>
-      <el-divider></el-divider>
-      <el-form ref="formRef" :model="form" :rules="rules" style="text-align: left" label-width="85px">
-        <el-form-item label="步骤名" prop="stepName">
-          <el-input v-model="form.stepName" type="text"></el-input>
-        </el-form-item>
-        <el-form-item label="步骤描述" prop="stepDesc">
-          <el-input v-model="form.stepDesc" type="text"></el-input>
-        </el-form-item>
-        <el-form-item label="执行部门" prop="executiveDepartment">
-          <el-select v-model="form.executiveDepartment" type="text" style="width: 100%">
-            <el-option
-              v-for="item of departmentList"
-              :key="item.id"
-              :label="item.departmentName"
-              :value="item.departmentName"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="步骤执行人" prop="executor">
-          <el-select
-            v-model="form.executor"
-            remote
-            filterable
-            placeholder="请输入姓名"
-            :remote-method="handlerQueryUserList"
-            :loading="loading"
-          >
-            <el-option v-for="item in userList" :key="item.value" :label="item.label" :value="item.value"> </el-option>
-          </el-select>
-           <el-autocomplete
-            v-model="form.executor"
-            :clearable="true"
-            :fetch-suggestions="handlerQueryUserList"
-          >
-            <template #default="{ item }">
-              <div>{{ item.label }}</div>
-            </template>
-          </el-autocomplete>
-        </el-form-item>
-        <el-form-item label="参数" prop="params">
-          <el-select v-model="form.params" placeholder="请输入参数">
-            <el-option v-for="item in stepParams" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handleAddStep">添加步骤</el-button>
-        </el-form-item>
-      </el-form>
-      <el-table :data="steps" border>
-        <el-table-column label="步骤" width="50">
-          <template #default="scope">
-            <span>{{ scope.$index + 1 }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="stepName" label="步骤名">
-          <template #default="scope">
-            <el-input v-model="scope.row.stepName"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column prop="stepDesc" label="步骤描述">
-          <template #default="scope">
-            <el-input v-model="scope.row.stepDesc"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column prop="executiveDepartment" label="执行部门">
-          <template #default="scope">
-            <el-select v-model="scope.row.executiveDepartment" type="text" style="width: 100%">
-              <el-option
-                v-for="item of departmentList"
-                :key="item.id"
-                :label="item.departmentName"
-                :value="item.departmentName"
-              ></el-option>
-            </el-select>
-          </template>
-        </el-table-column>
-        <el-table-column prop="executor" label="执行人">
-          <template #default="scope">
-            <el-select
-              v-model="scope.row.executor"
-              remote
-              filterable
-              placeholder="请输入姓名"
-              :remote-method="handlerQueryUserList"
-              :loading="loading"
-            >
-              <el-option v-for="item in userList" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作">
-          <template #default="scope">
-            <el-popconfirm title="确定删除吗?" @confirm="handleDeleteStep(scope.row.id, scope.$index)">
-              <template #reference>
-                <el-button type="text">删除</el-button>
-              </template>
-            </el-popconfirm>
-          </template>
-        </el-table-column>
-      </el-table>
-
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="submitHandler">确定</el-button>
-        </span>
-      </template>
-    </el-dialog> -->
-
     <el-table :data="processList" border>
       <el-table-column prop="processName" label="流程名" width="120" />
       <el-table-column prop="steps" label="流程步骤" min-width="600">
@@ -164,21 +45,89 @@
         </template>
       </el-table-column>
     </el-table>
-    <DialogForm v-model="dialogVisible" :title="dialogTitle" @confirm="handleConfirm">
-      <span>弹窗内容</span>
+    <!-- 创建流程弹窗 -->
+    <DialogForm
+      v-model="dialogVisible"
+      :title="editId ? '编辑流程' : '创建流程'"
+      :edit-id="editId"
+      width="80%"
+      @confirm="handleConfirm"
+      @closed="handleClosed"
+    >
+      <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" label-suffix=":">
+        <el-form-item v-for="item of fromConfig" :key="item.value" :label="item.label" :prop="item.prop">
+          <el-select v-if="item.component === 'select'" v-model="form[item.prop]" :style="item.style">
+            <el-option v-for="i of item.data" :key="i.label" :value="i.value" :label="i.label"></el-option>
+          </el-select>
+          <user-select
+            v-else-if="item.component === 'search'"
+            v-model="form[item.prop]"
+            :style="item.style"
+          ></user-select>
+          <el-button v-else-if="item.component === 'button'" :type="item.type">{{ item.text }}</el-button>
+          <el-input v-else v-model="form[item.prop]"></el-input>
+        </el-form-item>
+      </el-form>
+      <el-table :data="steps" border>
+        <el-table-column label="步骤" width="50">
+          <template #default="scope">
+            <span>{{ scope.$index + 1 }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="stepName" label="步骤名">
+          <template #default="scope">
+            <el-input v-model="scope.row.stepName"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column prop="stepDesc" label="步骤描述">
+          <template #default="scope">
+            <el-input v-model="scope.row.stepDesc"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column prop="executiveDepartment" label="执行部门">
+          <template #default="scope">
+            <el-select v-model="scope.row.executiveDepartment" type="text" style="width: 100%">
+              <el-option
+                v-for="item of departmentList"
+                :key="item.id"
+                :label="item.departmentName"
+                :value="item.departmentName"
+              ></el-option>
+            </el-select>
+          </template>
+        </el-table-column>
+        <el-table-column prop="executor" label="执行人">
+          <template #default="scope">
+            <user-select v-model="scope.row.executor" />
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template #default="scope">
+            <el-popconfirm title="确定删除吗?" @confirm="handleDeleteStep(scope.row.id, scope.$index)">
+              <template #reference>
+                <el-button type="text">删除</el-button>
+              </template>
+            </el-popconfirm>
+          </template>
+        </el-table-column>
+      </el-table>
     </DialogForm>
   </el-card>
 </template>
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { ArrowRight } from '@element-plus/icons-vue'
-// import DialogForm from '@/components/DialogForm/index.vue'
+import UserSelect from './UserSelect.vue'
+import { useFormConfig } from './formConfig'
+import type { FormInstance } from 'element-plus'
+import type { ISteps, IProcessList } from './type/index'
 
 const processName = ref('')
 const dialogVisible = ref(false)
 const dialogTitle = ref('创建流程')
-const formRef = ref(null)
-const form = reactive({
+const formRef = ref<FormInstance | null>(null)
+const form = ref({
+  progressName: '',
   stepId: null,
   stepName: '',
   stepDesc: '',
@@ -197,8 +146,8 @@ const rules = ref({
   ],
 })
 
-const steps = reactive([])
-const processList = ref([
+const steps = ref<ISteps[] | null>(null)
+const processList = ref<IProcessList[] | null>([
   {
     id: 2,
     processName: '用车申请',
@@ -251,90 +200,43 @@ const processList = ref([
     used: 1,
   },
 ])
+
 const departmentList = ref([])
-const editId = ref(null)
-const originRow = ref({
-  stepId: null,
-  stepName: '',
-  stepDesc: '',
-  executor: '',
-  executorId: '',
-  executiveDepartment: '',
-})
-const userList = ref([])
-const loading = ref(false)
-const stepParams = ref([
-  {
-    label: '车牌号',
-    value: '',
-  },
-  {
-    label: '司机',
-    value: '',
-  },
-  {
-    label: '手续状态',
-    value: '',
-  },
-  {
-    label: '开票抬头',
-    value: '',
-  },
-  {
-    label: '开票金额',
-    value: '',
-  },
-  {
-    label: '结清',
-    value: '',
-  },
-  {
-    label: '备注',
-    value: '',
-  },
-])
+const editId = ref<number | null>(null)
+const fromConfig = useFormConfig()
 
-getProcessTableList()
-getDepartmentList()
-/**
- * 获取流程列表
- */
-async function getProcessTableList() {}
-// 获取部门参数
-async function getDepartmentList() {}
+function handleCreate() {
+  dialogVisible.value = true
+  dialogTitle.value = '创建流程'
+}
 
-/**
- * 添加步骤
- */
-async function handleAddStep() {}
-/**
- * 提交流程
- */
-async function submitHandler() {}
+function handleClosed() {
+  editId.value = null
+  steps.value = null
+  formRef.value?.resetFields()
+}
 
 /**
  * 编辑
  */
-function handleEdit(row) {
+function handleEdit(row: IProcessList) {
   editId.value = row.id
-  originRow.value = { ...row }
   dialogTitle.value = '编辑流程'
   dialogVisible.value = true
   processName.value = row.processName
-  steps.length = 0
-  steps.push(...row.steps)
+  steps.value = [...row.steps]
 }
 
 function handleConfirm() {
   dialogVisible.value = false
 }
+
 // 删除流程
 async function handleDelete() {}
+
 // 删除步骤
 function handleDeleteStep() {}
 
 // 切换
 async function switchHandler() {}
-
-async function handlerQueryUserList() {}
 </script>

@@ -105,4 +105,3 @@ function handleCancel(index) {
 
 async function handleAdd() {}
 </script>
-<style></style>

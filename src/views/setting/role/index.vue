@@ -167,12 +167,4 @@ function handleCancel(index) {
  * 添加数据
  */
 async function handleAdd() {}
-
-/**
- * 格式化userId
- */
-// function formateId(id) {
-//   return 'hy' + id.toString().padStart(4, 0)
-// }
 </script>
-<style></style>
